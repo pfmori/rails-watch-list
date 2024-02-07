@@ -1,0 +1,10 @@
+<h1>My Bookmarks</h1>
+
+<ul>
+  <% @bookmarks.each do |bookmark| %>
+    <li><%= bookmark.title %></li>
+    <%= link_to "Delete",
+    bookmark_path(bookmark),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+  <% end %>
+</ul>

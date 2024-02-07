@@ -1,0 +1,29 @@
+<h1><%= @list.name %> List</h1>
+
+<div class="row">
+  <% @list.movies.each do |movie| %>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <!-- Movie Image -->
+        <% if movie.poster_url.present? %>
+          <%= image_tag movie.poster_url, class: "card-img-top", alt: movie.title %>
+        <% else %>
+          <div class="card-img-top">No Image Available</div>
+        <% end %>
+
+        <div class="card-body">
+          <!-- Movie Name and Rating -->
+          <h5 class="card-title"><%= movie.title %> (Rating: <%= movie.rating %>)</h5>
+
+          <!-- Movie Overview -->
+          <p class="card-text"><%= movie.overview %></p>
+
+          <!-- Delete Button -->
+          <%= button_to "Delete", bookmark_path(@list.bookmarks.find_by(movie_id: movie.id)), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to remove this movie from the list?" } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "Add a Movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
